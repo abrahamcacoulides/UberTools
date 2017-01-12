@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="unlocked">
+    <file>ic_lock_open_black_24dp_2x.png</file>
+  </qresource>
+  <qresource prefix="locked">
+    <file>ic_lock_black_24dp_2x.png</file>
+  </qresource>
+</RCC>
