@@ -112,7 +112,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         global job_number
         global separator1
         job_number= self.job_num_edit.text()#job_number lo uso para eliminar lo que esta antes del -
-        separator= self.separator_edit.text()#separator se inluye para poder determinar si el job es simplex o duplex o group
+        separator= self.separator_edit.text().lower()#separator se inluye para poder determinar si el job es simplex o duplex o group
         global job_number_separator
         job_number_separator=job_number+separator
         if self.separator_edit.text()=="-":
@@ -138,8 +138,8 @@ class MyApp(QMainWindow, Ui_MainWindow):
             else:
                 scr_location=r'C:\r13\dwg'+'\\'+job_number+'\\'
             scr_name = 'TitleScript'+separator1+'.scr'
-            eng_path=scr_location+'eng'+separator1+'.eng'
-            eng_path1=scr_location+job_number+"\\"+'eng'+separator1+'.eng'
+            eng_path=scr_location+'eng'+separator1.lower()+'.eng'
+            eng_path1=scr_location+job_number+"\\"+'eng'+separator1.lower()+'.eng'
             if os.path.exists(eng_path)==True:
                 ultimate_eng_path=eng_path
                 ultimate_path=scr_location
@@ -152,17 +152,21 @@ class MyApp(QMainWindow, Ui_MainWindow):
                 with open(scr_location+scr_name, "w") as t:#abre text.txt en escribir
                     try:
                         with open(ultimate_eng_path,"r") as eng:#abre eng.txt en leer
-                            lines_lst = [ line.split('\t') for line in eng.read().splitlines() ] #inserta cada linea de eng en una lista
+                            lines_lst = [ line.split('\t') for line in eng.read().splitlines()] #inserta cada linea de eng en una lista
                             pg_num_lst = []
                             while n < len(lines_lst):
                                 if lines_lst[n][0] == "Printed" or lines_lst[n][0] == "":#este if es para brincarse las lineas vacias y omitir la palabra Printed
                                     n+=1
                                 else:
-                                    pg_num_lst.append((str(lines_lst[n][0]).split(str(job_number)+separator.lower()))[1])
-                                    n+=1
+                                    try:
+                                        pg_num_lst.append((str(lines_lst[n][0]).split(str(job_number)+separator.lower()))[1])
+                                        n+=1
+                                    except:
+                                        pg_num_lst.append((str(lines_lst[n][0]).split(str(job_number) + separator.upper()))[1])
+                                        n += 1
                             c=0#lleva la cuenta para seguir escribiendo codigo al archivo
                             for line in lines_lst:
-                                if line[0] == str(job_number)+separator.lower()+"CP" or line[0] == str(job_number)+separator.lower()+"N" or line[0] == "Printed":#este if es para no ponerle title block a la portada ni a la N
+                                if line[0] == str(job_number)+separator.lower()+"CP" or line[0] == str(job_number)+separator.lower()+"N" or line[0] == str(job_number)+separator.upper()+"CP" or line[0] == str(job_number)+separator.upper()+"N" or line[0] == "Printed":#este if es para no ponerle title block a la portada ni a la N
                                     c+=1
                                     if line[0] != "Printed":
                                         self.dwgs_list.append(ultimate_path + str(line[0]) + '.dwg')
@@ -178,6 +182,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
                                     if (os.access(ultimate_path+str(line[0])+'.dwg', os.W_OK) == 0):
                                         self.lock_unlocked_pb.setEnabled(True)
                                         self.blocked = True
+                            self.dwgs_list.append(ultimate_path + 'TITLE' + '.dwg')
                             t.write("quit"+"\n")
                             if self.blocked:
                                 self.dialog_label.setText("Done, the script has been generated but your dwgs are READ-ONLY. \n Press the lock to unlock them")
