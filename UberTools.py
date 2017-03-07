@@ -29,6 +29,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.actionHow_to_use.triggered.connect(self.HowTo)
         self.toerase=[]
         self.blocked = False
+        self.wrong = False
 
     def About(self):
         dialog = QDialog()
@@ -161,6 +162,9 @@ class MyApp(QMainWindow, Ui_MainWindow):
                                     try:
                                         pg_num_lst.append((str(lines_lst[n][0]).split(str(job_number)+separator.lower()))[1])
                                         n+=1
+                                    except IndexError:
+                                        self.wrong = True
+                                        n+=1
                                     except:
                                         pg_num_lst.append((str(lines_lst[n][0]).split(str(job_number) + separator.upper()))[1])
                                         n += 1
@@ -170,7 +174,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
                                     c+=1
                                     if line[0] != "Printed":
                                         self.dwgs_list.append(ultimate_path + str(line[0]) + '.dwg')
-                                elif c < len(pg_num_lst):
+                                elif (c < len(pg_num_lst)) and job_number in line[0]:
                                     t.write("fileopen"+"\n")
                                     t.write('"'+ultimate_path+str(line[0])+'.dwg"'+"\n")
                                     t.write("(load "+'"DDTITLE"'+")(TITLE 'INS)"+"\n")
@@ -179,12 +183,19 @@ class MyApp(QMainWindow, Ui_MainWindow):
                                     t.write("\n"+"\n")
                                     c+=1
                                     self.dwgs_list.append(ultimate_path+str(line[0])+'.dwg')
-                                    if (os.access(ultimate_path+str(line[0])+'.dwg', os.W_OK) == 0):
-                                        self.lock_unlocked_pb.setEnabled(True)
-                                        self.blocked = True
+                                    if os.path.exists(ultimate_path+str(line[0])+'.dwg'):
+                                        if (os.access(ultimate_path+str(line[0])+'.dwg', os.W_OK) == 0):
+                                            self.lock_unlocked_pb.setEnabled(True)
+                                            self.blocked = True
+                                    else:
+                                        self.wrong = True
                             self.dwgs_list.append(ultimate_path + 'TITLE' + '.dwg')
                             t.write("quit"+"\n")
-                            if self.blocked:
+                            if self.wrong:
+                                self.dialog_label.setText("Issue with the ENG file, either a file couldn't be accessed or has an invalid name. \n Please validate it.")
+                                self.dialog_label.setStyleSheet("color:#ffffff;background-color:#0000ff;")
+                                self.wrong = False
+                            elif self.blocked:
                                 self.dialog_label.setText("Done, the script has been generated but your dwgs are READ-ONLY. \n Press the lock to unlock them")
                                 self.dialog_label.setStyleSheet("color:#ffffff;background-color:#0000ff;")
                             else:
