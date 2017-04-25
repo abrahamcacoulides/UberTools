@@ -87,7 +87,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         dialog = QFileDialog()
         dialog.setFileMode(QFileDialog.Directory)
         dialog.setOption(QFileDialog.ShowDirsOnly)
-        os.chdir(r'C:\r13\dwg\\')
+        os.chdir(r'C:\\')
         self.directory = dialog.getExistingDirectory(self, 'Choose Folder', os.path.curdir)
         self.browse_edit.setText(self.directory)
 
@@ -95,7 +95,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         dialog = QFileDialog()
         dialog.setFileMode(QFileDialog.Directory)
         dialog.setOption(QFileDialog.ShowDirsOnly)
-        os.chdir(r'C:\r13\dwg\\')
+        os.chdir(r'C:\\')
         self.directory = dialog.getExistingDirectory(self, 'Choose Folder', os.path.curdir)
         self.browse_edit_2.setText(self.directory)
         self.dialog_label_2.setText("Click 'OK!'")

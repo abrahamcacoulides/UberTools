@@ -3,6 +3,7 @@ missing module named resource - imported by posix, C:\Users\abraham.cacoulides\P
 missing module named posix - imported by os, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named _posixsubprocess - imported by subprocess, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named 'org.python' - imported by pickle, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py, xml.sax
+missing module named ce - imported by os, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named readline - imported by cmd, code, pdb, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 excluded module named _frozen_importlib - imported by importlib, importlib.abc, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
@@ -13,7 +14,6 @@ missing module named 'java.lang' - imported by platform, C:\Users\abraham.cacoul
 missing module named vms_lib - imported by platform, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named termios - imported by tty, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py, getpass
 missing module named grp - imported by shutil, tarfile, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
-missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py, netrc, getpass
-missing module named ce - imported by os, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named _dummy_threading - imported by dummy_threading, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
 missing module named org - imported by copy, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, C:\Users\abraham.cacoulides\PycharmProjects\UberTools\UberTools.py, netrc, getpass
