@@ -4,11 +4,7 @@ from PyQt5.Qt import QIcon
 from window1 import Ui_MainWindow
 from window2 import Ui_Dialog
 from window3 import Ui_Dialog1
-import sys
-import os
-import subprocess
-import glob
-import stat
+import sys,os,subprocess,glob,stat
 
 class MyApp(QMainWindow, Ui_MainWindow):
 
@@ -57,7 +53,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         try:
             subprocess.call (['C:\\r13\\win\\acad.exe', 'TITLE.dwg', scr_location + scr_name])
         except:
-            subprocess.call(['C:\\Program Files\\Autodesk\\AutoCAD 2014\\acad.exe', 'TITLE.dwg', scr_location + scr_name])
+            subprocess.call(['C:\\Program Files\\Autodesk\\AutoCAD 2014\\acad.exe', 'TITLE.dwg', '/b' , scr_location + scr_name])
         self.dialog_label.setText("The Titles for Job #"+ job_number + separator1 + u" had been updated")
         self.dialog_label.setStyleSheet("color:#ffffff;background-color:#0000ff;")
         if scr_location  + scr_name in self.toerase:
@@ -79,8 +75,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         try:
             subprocess.call (['C:\\r13\\win\\acad.exe', 'TITLE.dwg', self.path + 'wblockscript.scr'])
         except:
-            subprocess.call(
-                ['C:\\Program Files\\Autodesk\\AutoCAD 2014\\acad.exe', 'TITLE.dwg', self.path + 'wblockscript.scr'])
+            subprocess.call(['C:\\Program Files\\Autodesk\\AutoCAD 2014\\acad.exe', 'TITLE.dwg', '/b', self.path + 'wblockscript.scr'])
         self.dialog_label.setText("The drawings had been updated")
         self.dialog_label.setStyleSheet("color:#ffffff;background-color:#0000ff;")
         if self.path + 'wblockscript.scr' in self.toerase:
